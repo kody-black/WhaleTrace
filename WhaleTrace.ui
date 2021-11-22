@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1087</width>
+    <height>830</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,6,3">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="9,0,1">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLineEdit" name="FilterEdit">
+        <property name="statusTip">
+         <string>应用显示过滤器...</string>
+        </property>
+        <property name="inputMask">
+         <string/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="dragEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="placeholderText">
+         <string>应用显示过滤器...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="QuickFilterComboBox">
+        <property name="statusTip">
+         <string>快速过滤</string>
+        </property>
+        <property name="currentText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="FilterButton">
+        <property name="text">
+         <string>确定</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icon/filter.png</normaloff>icon/filter.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QColumnView" name="columnView">
+      <property name="dragEnabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableView" name="tableView">
+      <property name="dragEnabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1087</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuGoto">
+    <property name="geometry">
+     <rect>
+      <x>344</x>
+      <y>187</y>
+      <width>137</width>
+      <height>174</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>跳转</string>
+    </property>
+    <addaction name="actionGoto"/>
+    <addaction name="actionAbove"/>
+    <addaction name="actionBelow"/>
+    <addaction name="actionFirst"/>
+    <addaction name="actionLast"/>
+   </widget>
+   <widget class="QMenu" name="menuSniff">
+    <property name="title">
+     <string>捕获</string>
+    </property>
+    <addaction name="actionSet"/>
+    <addaction name="separator"/>
+    <addaction name="actionStart"/>
+    <addaction name="actionStop"/>
+    <addaction name="actionRestart"/>
+   </widget>
+   <widget class="QMenu" name="menuAnalyze">
+    <property name="title">
+     <string>分析</string>
+    </property>
+    <widget class="QMenu" name="menuQuickFilter">
+     <property name="title">
+      <string>快速过滤</string>
+     </property>
+     <addaction name="actionTCP"/>
+     <addaction name="actionUDP"/>
+     <addaction name="actionICMP"/>
+     <addaction name="actionARP"/>
+     <addaction name="actionHTTP"/>
+     <addaction name="actionHTTPS"/>
+     <addaction name="actionFTP"/>
+     <addaction name="actionTELNET"/>
+     <addaction name="actionIPv4"/>
+     <addaction name="actionIPv6"/>
+    </widget>
+    <addaction name="actionFilter"/>
+    <addaction name="menuQuickFilter"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>工具</string>
+    </property>
+    <addaction name="actionSendUDP"/>
+    <addaction name="actionSendTCP"/>
+    <addaction name="actionSendICMP"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="actionDoc"/>
+    <addaction name="actionInfo"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuSniff"/>
+   <addaction name="menuGoto"/>
+   <addaction name="menuAnalyze"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionStart2"/>
+   <addaction name="actionStop2"/>
+   <addaction name="actionRestart2"/>
+   <addaction name="separator"/>
+   <addaction name="actionSave2"/>
+   <addaction name="separator"/>
+   <addaction name="actionGoto2"/>
+   <addaction name="actionAbove2"/>
+   <addaction name="actionBelow2"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>打开</string>
+   </property>
+   <property name="statusTip">
+    <string>打开文件</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="statusTip">
+    <string>退出WhaleTrace</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>保存</string>
+   </property>
+   <property name="statusTip">
+    <string>保存当前文件</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSet">
+   <property name="text">
+    <string>设置</string>
+   </property>
+   <property name="statusTip">
+    <string>设置</string>
+   </property>
+   <property name="shortcut">
+    <string/>
+   </property>
+  </action>
+  <action name="actionStart">
+   <property name="text">
+    <string>开始</string>
+   </property>
+   <property name="statusTip">
+    <string>开始捕获</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="text">
+    <string>停止</string>
+   </property>
+   <property name="statusTip">
+    <string>停止捕获</string>
+   </property>
+   <property name="shortcut">
+    <string/>
+   </property>
+  </action>
+  <action name="actionRestart">
+   <property name="text">
+    <string>重新开始</string>
+   </property>
+   <property name="statusTip">
+    <string>重新开始捕获</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionGoto">
+   <property name="text">
+    <string>转至分组</string>
+   </property>
+   <property name="statusTip">
+    <string>跳转到指定分组</string>
+   </property>
+   <property name="whatsThis">
+    <string>跳转到指定分组</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionAbove">
+   <property name="text">
+    <string>上一个分组</string>
+   </property>
+   <property name="statusTip">
+    <string>跳转至上一个分组</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Up</string>
+   </property>
+  </action>
+  <action name="actionBelow">
+   <property name="text">
+    <string>下一个分组</string>
+   </property>
+   <property name="statusTip">
+    <string>跳转至下一个分组</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Down</string>
+   </property>
+  </action>
+  <action name="actionFirst">
+   <property name="text">
+    <string>首个分组</string>
+   </property>
+   <property name="statusTip">
+    <string>跳转至第一个分组</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+  </action>
+  <action name="actionLast">
+   <property name="text">
+    <string>最新分组</string>
+   </property>
+   <property name="statusTip">
+    <string>跳转至最后一个分组</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+  </action>
+  <action name="actionSave_2">
+   <property name="text">
+    <string>baocun </string>
+   </property>
+  </action>
+  <action name="actionFilter">
+   <property name="text">
+    <string>显示过滤器</string>
+   </property>
+   <property name="statusTip">
+    <string>显示过滤器</string>
+   </property>
+  </action>
+  <action name="actionTCP">
+   <property name="text">
+    <string>TCP</string>
+   </property>
+  </action>
+  <action name="actionUDP">
+   <property name="text">
+    <string>UDP</string>
+   </property>
+  </action>
+  <action name="actionICMP">
+   <property name="text">
+    <string>ICMP</string>
+   </property>
+  </action>
+  <action name="actionARP">
+   <property name="text">
+    <string>ARP</string>
+   </property>
+  </action>
+  <action name="actionHTTP">
+   <property name="text">
+    <string>HTTP</string>
+   </property>
+  </action>
+  <action name="actionHTTPS">
+   <property name="text">
+    <string>HTTPS</string>
+   </property>
+  </action>
+  <action name="actionFTP">
+   <property name="text">
+    <string>FTP</string>
+   </property>
+  </action>
+  <action name="actionTELNET">
+   <property name="text">
+    <string>TELNET</string>
+   </property>
+  </action>
+  <action name="actionIPv4">
+   <property name="text">
+    <string>IPv4</string>
+   </property>
+  </action>
+  <action name="actionIPv6">
+   <property name="text">
+    <string>IPv6</string>
+   </property>
+  </action>
+  <action name="actionSendUDP">
+   <property name="text">
+    <string>发送UDP包</string>
+   </property>
+   <property name="statusTip">
+    <string>发送UDP包</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+  </action>
+  <action name="actionSendTCP">
+   <property name="text">
+    <string>发送TCP包</string>
+   </property>
+   <property name="statusTip">
+    <string>发送TCP包</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+  </action>
+  <action name="actionSendICMP">
+   <property name="text">
+    <string>发送ICMP包</string>
+   </property>
+   <property name="statusTip">
+    <string>发送ICMP包</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+  </action>
+  <action name="actionDoc">
+   <property name="text">
+    <string>说明文档</string>
+   </property>
+   <property name="statusTip">
+    <string>打开说明文档</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="text">
+    <string>关于</string>
+   </property>
+   <property name="statusTip">
+    <string>关于WhaleTrace</string>
+   </property>
+  </action>
+  <action name="actionStart2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>icon/start.png</normaloff>icon/start.png</iconset>
+   </property>
+   <property name="text">
+    <string>开始</string>
+   </property>
+   <property name="statusTip">
+    <string>开始嗅探</string>
+   </property>
+  </action>
+  <action name="actionStop2">
+   <property name="icon">
+    <iconset>
+     <normaloff>icon/stop.png</normaloff>icon/stop.png</iconset>
+   </property>
+   <property name="text">
+    <string>停止</string>
+   </property>
+   <property name="statusTip">
+    <string>停止嗅探</string>
+   </property>
+  </action>
+  <action name="actionRestart2">
+   <property name="icon">
+    <iconset>
+     <normaloff>icon/restart.png</normaloff>icon/restart.png</iconset>
+   </property>
+   <property name="text">
+    <string>重新开始</string>
+   </property>
+   <property name="statusTip">
+    <string>重新开始嗅探</string>
+   </property>
+  </action>
+  <action name="actionSave2">
+   <property name="icon">
+    <iconset>
+     <normalon>icon/save.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>保存</string>
+   </property>
+   <property name="statusTip">
+    <string>保存当前文件</string>
+   </property>
+  </action>
+  <action name="actionGoto2">
+   <property name="icon">
+    <iconset>
+     <normaloff>icon/goto.png</normaloff>icon/goto.png</iconset>
+   </property>
+   <property name="text">
+    <string>转到分组</string>
+   </property>
+   <property name="statusTip">
+    <string>转到分组</string>
+   </property>
+  </action>
+  <action name="actionAbove2">
+   <property name="icon">
+    <iconset>
+     <normaloff>icon/above.png</normaloff>icon/above.png</iconset>
+   </property>
+   <property name="text">
+    <string>上一个分组</string>
+   </property>
+   <property name="statusTip">
+    <string>跳转至上一个分组</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Up</string>
+   </property>
+  </action>
+  <action name="actionBelow2">
+   <property name="icon">
+    <iconset>
+     <normaloff>icon/below.png</normaloff>icon/below.png</iconset>
+   </property>
+   <property name="text">
+    <string>下一个分组</string>
+   </property>
+   <property name="statusTip">
+    <string>跳转至下一个分组</string>
+   </property>
+   <property name="whatsThis">
+    <string/>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Down</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
