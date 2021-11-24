@@ -10,23 +10,52 @@ from PyQt5.QtCore import QThread
 packet_id = 0
 
 
-class MyThread(QThread):
-    def __init__(self):
-        super(Thread.self).__init__()
+# 时间戳转为格式化时间
+def timestamp2time(timestamp):
+    time_array = time.localtime(timestamp)
+    mytime = time.strftime("%Y-%m-%d %H:%M:%S", time_array)
+    return mytime
+
+
+# 格式化时间转为时间戳
+def time2timestamp(mytime):
+    time_array = time.strptime(mytime, "%Y-%m-%d %H:%M:%S")
+    return time.mktime(time_array)
 
 
 class MyMainwindow(WhaleUi, QMainWindow):
+    # 用来终止抓包线程的线程事件
+    stop_sending = threading.Event()
+
     def __init__(self):
         super(MyMainwindow, self).__init__()
         self.setupUi(self)
 
-    def beginSniff(self):
-        pkts = sniff(prn=lambda x: self.process_packet(x), count=4)
 
-    def buttonClick(self):
-        print("好好学习")
-        sender = self.sender()
-        self.statusBar().showMessage(sender.text() + ' was pressed')
+    def beginSniff(self):
+        sniffer_thread = threading.Thread(target=self.sniffer)
+        sniffer_thread.setDaemon(True)
+        sniffer_thread.start()
+        self.actionStart2.setDisabled(True)
+        self.actionStart.setDisabled(True)
+        self.actionStop2.setDisabled(False)
+        self.actionStop.setDisabled(False)
+
+    def pauseSniff(self):
+        self.stop_sending.set()
+        self.actionStop2.setDisabled(True)
+        self.actionStop.setDisabled(True)
+        self.actionStart2.setDisabled(False)
+        self.actionStart.setDisabled(False)
+
+    def sniffer(self):
+        self.stop_sending.clear()
+        pkts = sniff(prn=lambda x: self.process_packet(x), stop_filter=(lambda x: self.stop_sending.is_set()))
+
+    # def buttonClick(self):
+    #     print("好好学习")
+    #     sender = self.sender()
+    #     self.statusBar().showMessage(sender.text() + ' was pressed')
 
     def process_packet(self, packet):
         PacketTime = str(packet.time)

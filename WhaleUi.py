@@ -197,7 +197,6 @@ class WhaleUi(object):
         self.actionInfo = QtWidgets.QAction(MainWindow)
         self.actionInfo.setObjectName("actionInfo")
         self.actionStart2 = QtWidgets.QAction(MainWindow)
-        self.actionStart2.setCheckable(True)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("icon/start.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionStart2.setIcon(icon1)
@@ -281,9 +280,15 @@ class WhaleUi(object):
         self.toolBar.addAction(self.actionAbove2)
         self.toolBar.addAction(self.actionBelow2)
 
+        self.actionStop2.setDisabled(True)
+        self.actionRestart2.setDisabled(True)
+        self.actionStop.setDisabled(True)
+        self.actionRestart.setDisabled(True)
+
         self.retranslateUi(MainWindow)
         self.actionExit.triggered.connect(MainWindow.close)
         self.actionStart2.triggered.connect(MainWindow.beginSniff)
+        self.actionStop2.triggered.connect(MainWindow.pauseSniff)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
