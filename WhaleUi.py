@@ -52,9 +52,8 @@ class WhaleUi(object):
         self.tableView.setObjectName("tableView")
 
         # 下面设置表格内容
-        # 设置数据层次结构，4行4列
         self.model = QStandardItemModel()
-        # 设置水平方向四个头标签文本内容
+        # 设置水平方向的头标签文本内容
         self.model.setHorizontalHeaderLabels(['编号', '时间', '源地址', '目的地址', '协议', '长度', '信息'])
 
         # # 示例：设置每个位置的文本值
@@ -289,6 +288,7 @@ class WhaleUi(object):
         self.actionExit.triggered.connect(MainWindow.close)
         self.actionStart2.triggered.connect(MainWindow.beginSniff)
         self.actionStop2.triggered.connect(MainWindow.pauseSniff)
+        self.actionRestart2.triggered.connect(MainWindow.restartSniff)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

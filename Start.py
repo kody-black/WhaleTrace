@@ -47,6 +47,15 @@ class MyMainwindow(WhaleUi, QMainWindow):
         self.actionStop.setDisabled(True)
         self.actionStart2.setDisabled(False)
         self.actionStart.setDisabled(False)
+        self.actionRestart2.setDisabled(False)
+        self.actionRestart.setDisabled(False)
+
+    def restartSniff(self):
+        lastRow = self.model.rowCount()
+        print(lastRow)
+        self.model.removeRows(0,lastRow)
+        global packet_id
+        packet_id = 0
 
     def sniffer(self):
         self.stop_sending.clear()
@@ -97,7 +106,6 @@ class MyMainwindow(WhaleUi, QMainWindow):
             # dst = packet[Dot3].dst
             # proto = 'SNAP'    # 802.3
         length = len(packet)  # 长度
-        print(length)
         info = packet.summary()  # 信息
 
         global packet_id
