@@ -13,7 +13,7 @@ packet_id = 0
 # 时间戳转为格式化时间
 def timestamp2time(timestamp):
     time_array = time.localtime(timestamp)
-    mytime = time.strftime("%Y-%m-%d %H:%M:%S", time_array)
+    mytime = time.strftime("%H:%M:%S", time_array)
     return mytime
 
 
@@ -67,7 +67,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
     #     self.statusBar().showMessage(sender.text() + ' was pressed')
 
     def process_packet(self, packet):
-        PacketTime = str(packet.time)
+        realTime = timestamp2time(packet.time)
         if Ether in packet:
             src = packet[Ether].src
             dst = packet[Ether].dst
@@ -110,7 +110,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
 
         global packet_id
         item1 = QStandardItem(str(packet_id))
-        item2 = QStandardItem(PacketTime)
+        item2 = QStandardItem(str(realTime))
         item3 = QStandardItem(src)
         item4 = QStandardItem(dst)
         item5 = QStandardItem(proto)
