@@ -8,6 +8,7 @@ from scapy.layers.l2 import *
 from PyQt5.QtCore import QThread
 
 packet_id = 0
+condi = ""
 
 
 # 时间戳转为格式化时间
@@ -26,6 +27,7 @@ def time2timestamp(mytime):
 class MyMainwindow(WhaleUi, QMainWindow):
     # 用来终止抓包线程的线程事件
     stop_sending = threading.Event()
+    #finish = QtCore.pyqtSignal(int)
 
     def __init__(self):
         super(MyMainwindow, self).__init__()
@@ -59,8 +61,21 @@ class MyMainwindow(WhaleUi, QMainWindow):
 
     def sniffer(self):
         self.stop_sending.clear()
-        pkts = sniff(prn=lambda x: self.process_packet(x), stop_filter=(lambda x: self.stop_sending.is_set()))
+        #print(condi)
+        pkts = sniff(filter=condi,prn=lambda x: self.process_packet(x),stop_filter=(lambda x: self.stop_sending.is_set()))
+        #self.finish.emit(i)
 
+    def actioncondi(self):
+        global condi
+        #condi = self.QuickFilterComboBox.currentText()
+        condi=self.FilterEdit.text().lower()
+        #暂时没想好文本框和下拉选项同时存在时怎么选
+        print(condi)
+    #def changeitem(self,i):
+	#	self.tableWidget.setItem(i,3,QtWidgets.QTableWidgetItem(list[i]))
+    #filter=WhaleUi.condi, 
+    #filter=WhaleUi.condi, 
+    #def handleCalc(self):
     # def buttonClick(self):
     #     print("好好学习")
     #     sender = self.sender()
@@ -79,6 +94,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
                 proto = 'LOOP'  # 协议
             # IP
             if proto == 'IPv4':
+                #muliyiii='IPv4'
                 # 建立协议查询字典
                 protos = {1: 'ICMP', 2: 'IGMP', 4: 'IP', 6: 'TCP', 8: 'EGP', 9: 'IGP', 17: 'UDP', 41: 'IPv6', 50: 'ESP',
                           89: 'OSPF'}
@@ -89,6 +105,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
                     proto = protos[proto]
             # TCP
             if TCP in packet:
+                #muliyiii='TCP'
                 protos_tcp = {80: 'Http', 443: 'Https', 23: 'Telnet', 21: 'Ftp', 20: 'ftp_data', 22: 'SSH', 25: 'SMTP'}
                 sport = packet[TCP].sport
                 dport = packet[TCP].dport
@@ -98,6 +115,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
                 elif dport in protos_tcp:
                     proto = protos_tcp[dport]
             elif UDP in packet:
+                #muliyiii='UDP'
                 if packet[UDP].sport == 53 or packet[UDP].dport == 53:
                     proto = 'DNS'
         else:
@@ -107,8 +125,8 @@ class MyMainwindow(WhaleUi, QMainWindow):
             # proto = 'SNAP'    # 802.3
         length = len(packet)  # 长度
         info = packet.summary()  # 信息
-
         global packet_id
+        #if muliyiii == 'TCP':#WhaleUi.condi=='' or 
         item1 = QStandardItem(str(packet_id))
         item2 = QStandardItem(str(realTime))
         item3 = QStandardItem(src)
@@ -124,6 +142,9 @@ class MyMainwindow(WhaleUi, QMainWindow):
         self.model.setItem(packet_id, 5, item6)
         self.model.setItem(packet_id, 6, item7)
         packet_id = packet_id + 1
+
+
+        
 
 
 if __name__ == '__main__':
