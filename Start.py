@@ -51,7 +51,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
         self.actionStart.setDisabled(False)
         self.actionRestart2.setDisabled(False)
         self.actionRestart.setDisabled(False)
-
+#
     def restartSniff(self):
         lastRow = self.model.rowCount()
         print(lastRow)
@@ -70,12 +70,27 @@ class MyMainwindow(WhaleUi, QMainWindow):
         #condi = self.QuickFilterComboBox.currentText()
         condi=self.FilterEdit.text().lower()
         #暂时没想好文本框和下拉选项同时存在时怎么选
-        print(condi)
-    #def changeitem(self,i):
-	#	self.tableWidget.setItem(i,3,QtWidgets.QTableWidgetItem(list[i]))
-    #filter=WhaleUi.condi, 
-    #filter=WhaleUi.condi, 
-    #def handleCalc(self):
+        #print(condi)
+    def actionchoose(self):
+        temp=self.QuickFilterComboBox.currentText().lower()
+        self.FilterEdit.setText(temp)
+
+#筛选函数，对于QStandardItemModel的使用有问题
+    def screen(self,tag):
+        rowcount = self.model.rowCount()
+        #print(rowcount)
+        #tag1 = tag.lower()
+        a=0
+        for i in range(0,rowcount):
+            b=self.model.item(i-a,4)
+            itemData=b.data
+            print(b)
+            if itemData != tag:
+                self.model.removeRow(i-a)
+                a=a+1
+
+        
+
     # def buttonClick(self):
     #     print("好好学习")
     #     sender = self.sender()
