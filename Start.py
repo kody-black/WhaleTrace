@@ -83,11 +83,12 @@ class MyMainwindow(WhaleUi, QMainWindow):
         a=0
         for i in range(0,rowcount):
             b=self.model.item(i-a,4)
-            itemData=b.data
-            print(b)
+            itemData=b.text()
+            #print(b)
             if itemData != tag:
                 self.model.removeRow(i-a)
                 a=a+1
+            #print(a)
 
         
 
