@@ -9,7 +9,7 @@ from PyQt5.QtCore import QThread
 
 packet_id = 0
 condi = ""
-
+currentrow = 0
 
 # 时间戳转为格式化时间
 def timestamp2time(timestamp):
@@ -75,7 +75,6 @@ class MyMainwindow(WhaleUi, QMainWindow):
         temp=self.QuickFilterComboBox.currentText().lower()
         self.FilterEdit.setText(temp)
 
-#筛选函数，对于QStandardItemModel的使用有问题
     def screen(self,tag):
         rowcount = self.model.rowCount()
         #print(rowcount)
@@ -89,8 +88,59 @@ class MyMainwindow(WhaleUi, QMainWindow):
                 self.model.removeRow(i-a)
                 a=a+1
             #print(a)
+    
+    #打开和保存有问题，保存的话无法将获得的数据保存下来，是空文件
+    def save(self):
+        wrpcap("D:/temp.pcap",self.model)
 
+    def open(self):
+        self.model = rdpcap("y123.pcap",'rb')
+
+    def click(self,item):
+        global currentrow
+        currentrow = item.row()
+
+    def above(self):
+        #currentrow = self.model.currentRow()
+        #self.model.setcurrentRow(currentrow+1)
+        #b=self.model.item(currentrow)
         
+        #rowcount = self.model.rowCount()
+        #print(rowcount)
+        #tag1 = tag.lower()
+        #i=0
+        #for i in range(0,rowcount):
+        #    if self.model.item(i,0).setSelected() == True:
+        #        break
+        global currentrow
+        currentrow = currentrow - 1
+        #row=item
+        b = self.tableView.selectRow(currentrow)
+        #a = self.model.item(currentrow-1,0).row()
+        #self.model.verticalScrollBar().setSliderPosition(a)
+        
+        #b=self.model.item(a-1,0).setSelected(True)
+        #self.model.setSelectionBehavior(QAbstractItemView::SelectRows)
+
+    def below(self):
+        global currentrow
+        currentrow = currentrow+1
+        b = self.tableView.selectRow(currentrow)
+        
+
+    def first(self):
+        global currentrow
+        currentrow = 0
+        b = self.tableView.selectRow(0)
+
+    def last(self):
+        global currentrow
+        rowcount = self.model.rowCount()
+        currentrow = rowcount-1
+        b = self.tableView.selectRow(rowcount-1)
+        
+        
+
 
     # def buttonClick(self):
     #     print("好好学习")

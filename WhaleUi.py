@@ -308,6 +308,13 @@ class WhaleUi(object):
         self.actionTELNET.triggered.connect(lambda:MainWindow.screen("TELNET"))
         self.actionIPv4.triggered.connect(lambda:MainWindow.screen("IPv4"))
         self.actionIPv6.triggered.connect(lambda:MainWindow.screen("IPv6"))
+        self.actionSave.triggered.connect(MainWindow.save)
+        self.actionOpen.triggered.connect(MainWindow.open)
+        self.actionAbove.triggered.connect(MainWindow.above)
+        self.actionBelow.triggered.connect(MainWindow.below)
+        self.actionFirst.triggered.connect(MainWindow.first)
+        self.actionLast.triggered.connect(MainWindow.last)
+        self.tableView.clicked.connect(MainWindow.click)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
