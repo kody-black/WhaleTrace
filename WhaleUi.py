@@ -12,8 +12,7 @@ from PyQt5.Qt import (QSplitter)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 
-#condi = "udp"
-#condi = ""
+
 class WhaleUi(object):
     #global condi
     def setupUi(self, MainWindow):
@@ -317,6 +316,8 @@ class WhaleUi(object):
         self.tableView.clicked.connect(MainWindow.click)
         self.actionAbove2.triggered.connect(MainWindow.above)
         self.actionBelow2.triggered.connect(MainWindow.below)
+        self.actionGoto.triggered.connect(MainWindow.get)
+        self.actionGoto2.triggered.connect(MainWindow.get)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

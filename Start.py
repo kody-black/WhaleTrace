@@ -5,7 +5,11 @@ from WhaleUi import *
 from scapy.all import *
 from scapy.layers.inet import *
 from scapy.layers.l2 import *
+
 from PyQt5.QtCore import QThread
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 packet_id = 0
 condi = ""
@@ -31,6 +35,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
 
     def __init__(self):
         super(MyMainwindow, self).__init__()
+        #super(InputDialogDemo, self).__init__(parent)
         self.setupUi(self)
 
 
@@ -142,6 +147,14 @@ class MyMainwindow(WhaleUi, QMainWindow):
         rowcount = self.model.rowCount()
         currentrow = rowcount-1
         b = self.tableView.selectRow(rowcount-1)
+
+    def get(self):
+        num, ok = QInputDialog.getText(self, "输入你要转到的组","输入组编号")
+        if ok and num : 
+           global currentrow
+           currentrow = num
+           a = int(num)
+           b = self.tableView.selectRow(a)
         
         
 
@@ -221,4 +234,6 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     myWindow = MyMainwindow()
     myWindow.show()
+    #demo=InputDialogDemo()
+    #demo.show()
     sys.exit(app.exec_())
