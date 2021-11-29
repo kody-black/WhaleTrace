@@ -315,6 +315,8 @@ class WhaleUi(object):
         self.actionFirst.triggered.connect(MainWindow.first)
         self.actionLast.triggered.connect(MainWindow.last)
         self.tableView.clicked.connect(MainWindow.click)
+        self.actionAbove2.triggered.connect(MainWindow.above)
+        self.actionBelow2.triggered.connect(MainWindow.below)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

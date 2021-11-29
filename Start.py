@@ -113,9 +113,11 @@ class MyMainwindow(WhaleUi, QMainWindow):
         #    if self.model.item(i,0).setSelected() == True:
         #        break
         global currentrow
-        currentrow = currentrow - 1
-        #row=item
-        b = self.tableView.selectRow(currentrow)
+        if currentrow > 0:
+            currentrow = currentrow - 1
+            #row=item
+            b = self.tableView.selectRow(currentrow)
+        
         #a = self.model.item(currentrow-1,0).row()
         #self.model.verticalScrollBar().setSliderPosition(a)
         
@@ -124,8 +126,10 @@ class MyMainwindow(WhaleUi, QMainWindow):
 
     def below(self):
         global currentrow
-        currentrow = currentrow+1
-        b = self.tableView.selectRow(currentrow)
+        rowcount = self.model.rowCount()
+        if currentrow < rowcount-1:
+           currentrow = currentrow+1
+           b = self.tableView.selectRow(currentrow)
         
 
     def first(self):
