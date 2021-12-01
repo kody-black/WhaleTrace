@@ -163,23 +163,27 @@ class MyMainwindow(WhaleUi, QMainWindow):
 
     def screen1(self,leg):
         lent = len(leg)
+        print(lent)
         if (leg[0] == 'i') and (lent>7):
             i=0
             nums = 0
 
-            for i in range(0,lent-1):
+            for i in range(0,lent):
                 if leg[i]=='=':
                     nums = nums+1
                 if nums == 2:
                     break
             level = i+2
 
-            for i in range(level,lent-1):
+            for i in range(level,lent):
                 if leg[i]==' ':
                     break
-            num = leg[level:i-1]
-            tag1 = leg[i+1:lent-1]
-            l = self.screen(tag1)
+            num = leg[level-1:i]
+            tag1 = leg[i+1:lent]
+            if tag1:
+                l = self.screen(tag1)
+            if tag1=="":
+                num = leg[level-1:i+1]
             if leg[3] == 'a':
                 l = self.screen2(num)
                 
@@ -210,10 +214,13 @@ class MyMainwindow(WhaleUi, QMainWindow):
         #tag1 = tag.lower()
         c=0
         for i in range(0,rowcount):
-            a=self.model.item(i-a,2).text()
-            b=self.model.item(i-a,3).text()
+            a=self.model.item(i-c,2).text()
+            b=self.model.item(i-c,3).text()
             #itemData=b.text()
-            #print(b)
+            print("对比")
+            print(b)
+            print(tag)
+            print("对比")
             if a != tag and b != tag :
                 self.model.removeRow(i-c)
                 c=c+1
@@ -225,9 +232,9 @@ class MyMainwindow(WhaleUi, QMainWindow):
         c=0
         for i in range(0,rowcount):
             #a=self.model.item(i-a,2).text()
-            b=self.model.item(i-a,3).text()
+            b=self.model.item(i-c,3).text()
             #itemData=b.text()
-            #print(b)
+            print(b)
             if b != tag :
                 self.model.removeRow(i-c)
                 c=c+1        
@@ -238,10 +245,10 @@ class MyMainwindow(WhaleUi, QMainWindow):
         #tag1 = tag.lower()
         c=0
         for i in range(0,rowcount):
-            a=self.model.item(i-a,2).text()
+            a=self.model.item(i-c,2).text()
             #b=self.model.item(i-a,3).text()
             #itemData=b.text()
-            #print(b)
+            print(a)
             if a != tag: #and b != tag :
                 self.model.removeRow(i-c)
                 c=c+1       
