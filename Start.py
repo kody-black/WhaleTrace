@@ -156,8 +156,98 @@ class MyMainwindow(WhaleUi, QMainWindow):
            a = int(num)
            b = self.tableView.selectRow(a)
         
-        
+    def action1(self):
+        con, ok = QInputDialog.getText(self, "过滤器","输入你的过滤条件")
+        if ok and con :
+            a = self.screen1(con)
 
+    def screen1(self,leg):
+        lent = len(leg)
+        if (leg[0] == 'i') and (lent>7):
+            i=0
+            nums = 0
+
+            for i in range(0,lent-1):
+                if leg[i]=='=':
+                    nums = nums+1
+                if nums == 2:
+                    break
+            level = i+2
+
+            for i in range(level,lent-1):
+                if leg[i]==' ':
+                    break
+            num = leg[level:i-1]
+            tag1 = leg[i+1:lent-1]
+            l = self.screen(tag1)
+            if leg[3] == 'a':
+                l = self.screen2(num)
+                
+            elif leg[3] == 'd':
+                l = self.screen3(num)
+
+            else :
+                l = self.screen4(num)
+
+        else :
+            l = self.screen(leg)
+
+
+        #rowcount = self.model.rowCount()
+        #print(rowcount)
+        #tag1 = tag.lower()
+        #a=0
+        #for i in range(0,rowcount):
+        #    b=self.model.item(i-a,4)
+        #    itemData=b.text()
+        #    #print(b)
+        #    if itemData != tag:
+        #        self.model.removeRow(i-a)
+        #        a=a+1
+    def screen2(self,tag):
+        rowcount = self.model.rowCount()
+        #print(rowcount)
+        #tag1 = tag.lower()
+        c=0
+        for i in range(0,rowcount):
+            a=self.model.item(i-a,2).text()
+            b=self.model.item(i-a,3).text()
+            #itemData=b.text()
+            #print(b)
+            if a != tag and b != tag :
+                self.model.removeRow(i-c)
+                c=c+1
+
+    def screen3(self,tag):
+        rowcount = self.model.rowCount()
+        #print(rowcount)
+        #tag1 = tag.lower()
+        c=0
+        for i in range(0,rowcount):
+            #a=self.model.item(i-a,2).text()
+            b=self.model.item(i-a,3).text()
+            #itemData=b.text()
+            #print(b)
+            if b != tag :
+                self.model.removeRow(i-c)
+                c=c+1        
+
+    def screen4(self,tag):
+        rowcount = self.model.rowCount()
+        #print(rowcount)
+        #tag1 = tag.lower()
+        c=0
+        for i in range(0,rowcount):
+            a=self.model.item(i-a,2).text()
+            #b=self.model.item(i-a,3).text()
+            #itemData=b.text()
+            #print(b)
+            if a != tag: #and b != tag :
+                self.model.removeRow(i-c)
+                c=c+1       
+#a=self.model.item(i-a,2).text()
+#                b=self.model.item(i-a,3).text()
+#                if a != num or b != num:
 
     # def buttonClick(self):
     #     print("好好学习")

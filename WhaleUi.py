@@ -14,7 +14,6 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QIcon
 
 
 class WhaleUi(object):
-    #global condi
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("WhaleTrace")
         MainWindow.resize(1087, 830)
@@ -297,6 +296,8 @@ class WhaleUi(object):
         self.actionStart2.triggered.connect(MainWindow.beginSniff)
         self.actionStop2.triggered.connect(MainWindow.pauseSniff)
         self.actionRestart2.triggered.connect(MainWindow.restartSniff)
+        
+
         self.actionTCP.triggered.connect(lambda:MainWindow.screen("TCP"))
         self.actionUDP.triggered.connect(lambda:MainWindow.screen("UDP"))
         self.actionICMP.triggered.connect(lambda:MainWindow.screen("ICMP"))
@@ -318,7 +319,7 @@ class WhaleUi(object):
         self.actionBelow2.triggered.connect(MainWindow.below)
         self.actionGoto.triggered.connect(MainWindow.get)
         self.actionGoto2.triggered.connect(MainWindow.get)
-
+        self.actionFilter.triggered.connect(MainWindow.action1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
