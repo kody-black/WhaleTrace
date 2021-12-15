@@ -14,7 +14,7 @@ from PyQt5.QtGui import *
 packet_id = 0
 condi = ""
 currentrow = 0
-
+pkts = 0
 # 时间戳转为格式化时间
 def timestamp2time(timestamp):
     time_array = time.localtime(timestamp)
@@ -65,6 +65,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
         packet_id = 0
 
     def sniffer(self):
+        global pkts
         self.stop_sending.clear()
         #print(condi)
         pkts = sniff(filter=condi,prn=lambda x: self.process_packet(x),stop_filter=(lambda x: self.stop_sending.is_set()))
@@ -96,10 +97,12 @@ class MyMainwindow(WhaleUi, QMainWindow):
     
     #打开和保存有问题，保存的话无法将获得的数据保存下来，是空文件
     def save(self):
-        wrpcap("D:/temp.pcap",self.model)
+        global pkts
+        wrpcap("D:/temp.pcapng",pkts)
 
     def open(self):
-        self.model = rdpcap("y123.pcap",'rb')
+        global pkts
+        pkts = rdpcap("D:/temp.pcapng")
 
     def click(self,item):
         global currentrow
