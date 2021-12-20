@@ -92,13 +92,17 @@ class WhaleUi(object):
         self.tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)  # 不可编辑
         self.tableView.setAlternatingRowColors(True)  # 颜色交替
         self.tableView.verticalHeader().setVisible(False) #隐藏垂直标题
-        self.columnView = QtWidgets.QColumnView(self.centralwidget)
-        self.columnView.setDragEnabled(False)
-        self.columnView.setObjectName("columnView")
+        #self.columnView = QtWidgets.QColumnView(self.centralwidget)
+        self.textview = QtWidgets.QTextEdit(self.centralwidget)
+        #self.columnView.setDragEnabled(False)
+        ##self.textview.setDragEnabled(False)
+        #self.columnView.setObjectName("columnView")
+        self.textview.setObjectName("textview")
         # 利用splitter控件实现可调整上下表格大小
         self.splitter1 = QSplitter(Qt.Vertical)
         self.splitter1.addWidget(self.tableView)
-        self.splitter1.addWidget(self.columnView)
+        #self.splitter1.addWidget(self.columnView)
+        self.splitter1.addWidget(self.textview)
         self.splitter1.setStretchFactor(0,6)
         self.splitter1.setStretchFactor(1,3)
         self.verticalLayout.addWidget(self.splitter1)
@@ -314,6 +318,9 @@ class WhaleUi(object):
         self.actionBelow.triggered.connect(MainWindow.below)
         self.actionFirst.triggered.connect(MainWindow.first)
         self.actionLast.triggered.connect(MainWindow.last)
+        self.actionSendTCP.triggered.connect(MainWindow.sendtcp)
+        self.actionSendICMP.triggered.connect(MainWindow.sendicmp)
+        self.actionSendUDP.triggered.connect(MainWindow.sendudp)
         self.tableView.clicked.connect(MainWindow.click)
         self.actionAbove2.triggered.connect(MainWindow.above)
         self.actionBelow2.triggered.connect(MainWindow.below)

@@ -14,7 +14,9 @@ from PyQt5.QtGui import *
 packet_id = 0
 condi = ""
 currentrow = 0
-pkts = 0
+nowrow = 0
+pkts = []
+packetarray = [[]for i in range(100)]
 # 时间戳转为格式化时间
 def timestamp2time(timestamp):
     time_array = time.localtime(timestamp)
@@ -104,9 +106,21 @@ class MyMainwindow(WhaleUi, QMainWindow):
         global pkts
         pkts = rdpcap("D:/temp.pcapng")
 
+#click函数除了需要获取当前的行号
+#还要将这一行的数据包的内容
     def click(self,item):
         global currentrow
         currentrow = item.row()
+        self.textview.clear()
+        N = len(packetarray[currentrow])
+        for i in range(N):
+            self.textview.setPlainText(packetarray[currentrow][i])
+
+        #for p in packet :
+        #    p.show()
+        #model1=QStandardItemModel()
+
+        #self.columnView.setModel(self.model)
 
     def above(self):
         #currentrow = self.model.currentRow()
@@ -139,7 +153,6 @@ class MyMainwindow(WhaleUi, QMainWindow):
            currentrow = currentrow+1
            b = self.tableView.selectRow(currentrow)
         
-
     def first(self):
         global currentrow
         currentrow = 0
@@ -254,7 +267,19 @@ class MyMainwindow(WhaleUi, QMainWindow):
             print(a)
             if a != tag: #and b != tag :
                 self.model.removeRow(i-c)
-                c=c+1       
+                c=c+1 
+
+    def sendtcp(self):
+        ans,unans=sr( IP(dst="192.168.1.*")/TCP(dport=80,flags="S") )
+        #ans.summary() 
+
+    def sendicmp(self):
+        ans,unans=sr(IP(dst="192.168.1.1-254")/ICMP())
+        #ans.summary(lambda (s,r): r.sprintf("%IP.src% is alive") )
+
+    def sendudp(self):
+        ans,unans=sr( IP(dst="192.168.*.1-10")/UDP(dport=0) )
+        #ans.summary( lambda(s,r) : r.sprintf("%IP.src% is alive") )
 #a=self.model.item(i-a,2).text()
 #                b=self.model.item(i-a,3).text()
 #                if a != num or b != num:
@@ -266,6 +291,14 @@ class MyMainwindow(WhaleUi, QMainWindow):
 
     def process_packet(self, packet):
         realTime = timestamp2time(packet.time)
+        global packetarray
+        global nowrow
+        for p in packet :
+            p.show()
+            packetarray[nowrow].append(str(p))
+
+        nowrow = nowrow + 1
+
         if Ether in packet:
             src = packet[Ether].src
             dst = packet[Ether].dst
