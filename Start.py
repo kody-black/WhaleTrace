@@ -11,12 +11,15 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
+from io import BytesIO
+
 packet_id = 0
 condi = ""
 currentrow = 0
 nowrow = 0
 pkts = []
 packetarray = [[]for i in range(100)]
+packetcont = [[]for i in range(100)]
 # 时间戳转为格式化时间
 def timestamp2time(timestamp):
     time_array = time.localtime(timestamp)
@@ -100,7 +103,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
     #打开和保存有问题，保存的话无法将获得的数据保存下来，是空文件
     def save(self):
         global pkts
-        wrpcap("D:/temp.pcapng",pkts)
+        wrpcap("D:/temp1.pcapng",pkts)
 
     def open(self):
         global pkts
@@ -112,10 +115,17 @@ class MyMainwindow(WhaleUi, QMainWindow):
         global currentrow
         currentrow = item.row()
         self.textview.clear()
+        #这个packetarray是个二维数组每一行存着packet的各个部分的内容
         N = len(packetarray[currentrow])
         for i in range(N):
             self.textview.setPlainText(packetarray[currentrow][i])
+        ##这个数组是将p.show()输出在终端的内容读回到output这个变量里，再强制转换成字符串变量
+        #N = len(packetcont[currentrow])
 
+        #for i in range(N):
+        #    self.textview.setPlainText(packetcont[currentrow][i])
+
+        ##这个下面是一开始写的，很有问题，别看这个
         #for p in packet :
         #    p.show()
         #model1=QStandardItemModel()
@@ -295,9 +305,32 @@ class MyMainwindow(WhaleUi, QMainWindow):
         global nowrow
         for p in packet :
             p.show()
+        #    #packetcont.append(str(a))
             packetarray[nowrow].append(str(p))
 
         nowrow = nowrow + 1
+
+        ## 这里是把输出的内容存到字符串里
+        #for p in packet :
+        #    p.show()
+        #    old_stdout,sys.stdout = sys.stdout,BytesIO()
+            
+        #    output= sys.stdout.getvalue()
+        #    sys.stdout=old_stdout
+        #    packetcont[nowrow].append(str(output))
+
+        #nowrow = nowrow + 1
+
+        ## 这里想把输出的内容存进一个txt文件看看有没有问题的，结果发现根本没有输出想要的内容
+        #fp=open("D:/test1.text","a+")
+        #for p in packet :
+        #    p.show()
+        #    old_stdout,sys.stdout = sys.stdout,BytesIO()
+            
+        #    output= sys.stdout.getvalue()
+        #    sys.stdout=old_stdout
+        #    fp.write(str(output))
+        #fp.close()
 
         if Ether in packet:
             src = packet[Ether].src
