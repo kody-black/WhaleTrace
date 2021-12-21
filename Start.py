@@ -2,6 +2,7 @@ import json
 import sys
 import tkinter
 
+from IPython.core.inputtransformer import tr
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 from WhaleUi import *
@@ -128,7 +129,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
     # 保存问题解决，保存的文件可以用wireshark打开
     def save(self):
         global packet_list
-        filename=QFileDialog.getSaveFileName(self,'save file')
+        filename=QFileDialog.getSaveFileName(self,'save file',"test.pcap")
         print(filename);
         wrpcap(filename[0], packet_list)
 
