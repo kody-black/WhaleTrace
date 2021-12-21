@@ -313,6 +313,7 @@ class WhaleUi(object):
         self.actionIPv4.triggered.connect(lambda:MainWindow.screen("IPv4"))
         self.actionIPv6.triggered.connect(lambda:MainWindow.screen("IPv6"))
         self.actionSave.triggered.connect(MainWindow.save)
+        self.actionSave2.triggered.connect(MainWindow.save)
         self.actionOpen.triggered.connect(MainWindow.open)
         self.actionAbove.triggered.connect(MainWindow.above)
         self.actionBelow.triggered.connect(MainWindow.below)
