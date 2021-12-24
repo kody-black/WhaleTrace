@@ -28,7 +28,4 @@ def get_key(ifname):
         except FileNotFoundError:
             pass
     print('所有接口信息字典列表： ' + str(key_name) + '\n')
-    return key_name[ifname]
-
-if __name__ == '__main__':
-    print(get_key('WLAN'))
+    return key_name
