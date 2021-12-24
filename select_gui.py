@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QInputDialog
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
+        Dialog.setObjectName("网卡选择")
         Dialog.resize(754, 462)
         self.horizontalLayoutWidget = QtWidgets.QWidget(Dialog)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(50, 30, 651, 51))
@@ -49,7 +49,7 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "网卡选择"))
         self.label.setText(_translate("Dialog", "选择设备"))
         self.beginBtn.setText(_translate("Dialog", "开始抓包"))
         self.stopBtn.setText(_translate("Dialog", "停止"))
