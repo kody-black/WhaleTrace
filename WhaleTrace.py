@@ -154,6 +154,11 @@ class MyMainwindow(WhaleUi, QMainWindow):
         # model1=QStandardItemModel()
 
         # self.columnView.setModel(self.model)
+    def click1(self):
+        self.textview.clear()
+        global packet_list
+        packet2str(packet_list[currentrow])
+        self.textview.setPlainText(packet2str(packet_list[currentrow]))
 
     def above(self):
         # currentrow = self.model.currentRow()
@@ -172,6 +177,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
             currentrow = currentrow - 1
             # row=item
             b = self.tableView.selectRow(currentrow)
+            c = self.click1()
 
         # a = self.model.item(currentrow-1,0).row()
         # self.model.verticalScrollBar().setSliderPosition(a)
@@ -185,17 +191,20 @@ class MyMainwindow(WhaleUi, QMainWindow):
         if currentrow < rowcount - 1:
             currentrow = currentrow + 1
             b = self.tableView.selectRow(currentrow)
+            c = self.click1()
 
     def first(self):
         global currentrow
         currentrow = 0
         b = self.tableView.selectRow(0)
+        c = self.click1()
 
     def last(self):
         global currentrow
         rowcount = self.model.rowCount()
         currentrow = rowcount - 1
         b = self.tableView.selectRow(rowcount - 1)
+        c = self.click1()
 
     def get(self):
         num, ok = QInputDialog.getText(self, "输入你要转到的组", "输入组编号")
@@ -204,6 +213,7 @@ class MyMainwindow(WhaleUi, QMainWindow):
             currentrow = num
             a = int(num)
             b = self.tableView.selectRow(a)
+            c = self.click1()
 
     def action1(self):
         con, ok = QInputDialog.getText(self, "过滤器", "输入你的过滤条件")
