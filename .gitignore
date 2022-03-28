@@ -32,3 +32,8 @@
 *.app
 
 /.idea
+__pycache__/getdevs.cpython-37.pyc
+__pycache__/select_gui.cpython-37.pyc
+__pycache__/Start.cpython-39.pyc
+__pycache__/WhaleTrace.cpython-37.pyc
+__pycache__/WhaleUi.cpython-37.pyc
